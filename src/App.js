@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React  from 'react';
+import ReactDOM from 'react-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+let value;
+function useState(initialState) {
+     if(typeof value === "undefined") value = initialState;
+    function setState(nextValue) {
+        value = nextValue;
+        ReactDOM.render(<MyName />, document.getElementById("root"));
+    }
+    return [value, setState];
 }
 
-export default App;
+function MyName () {
+    const [ name, setName ] = useState('');
+
+    function handleChange (evt) {
+        setName(evt.target.value);
+    }
+    
+    return (
+        <div>
+            <h1>My name is: {name}</h1>
+            <input type="text" value={name} onChange={handleChange} />
+        </div>
+    )
+}
+
+export default MyName
